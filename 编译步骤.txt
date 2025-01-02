@@ -1,0 +1,20 @@
+预先准备
+1.确定目标平台三元组
+cd 工具链
+./编译工具 -dumpmachine
+例
+sudo ./aarch64-linux-gcc -dumpmachine
+aarch64-rockchip-linux-gnu
+2.安装 autoconf,automake,libtool用于autogen.sh自动配置环境
+开始编译
+1.创建不同目标平台安装目录
+例
+mkdir build-aarch64-rockchip-linux-gnu
+2.autogen.sh配置环境
+./autogen.sh 
+3.运行configure
+./configure --host=目标平台 --prefix=安装目录 CC=交叉编译工具链位置 --enable-shared --enable-static
+例
+./configure --host=aarch64-rockchip-linux-gnu --prefix=$PWD/build-aarch64-rockchip-linux-gnu/ CC=/usr/local/prebuilts/gcc/linux-x86/aarch64/gcc-buildroot-9.3.0-2020.03-x86_64_aarch64-rockchip-linux-gnu/bin/aarch64-linux-gcc --enable-shared --enable-static
+4.编译安装
+make&&make install
